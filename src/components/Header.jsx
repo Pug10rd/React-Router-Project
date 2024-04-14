@@ -11,7 +11,9 @@ const Header = () => {
           MOVIES
         </Link>
       </div>
-      <h1 className="filler">Find top movies here!</h1>
+      {window.innerWidth > 430 ? (
+        <h1 className="filler">Find top movies here!</h1>
+      ) : null}
     </div>
   );
 };
