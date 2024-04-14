@@ -26,6 +26,7 @@ code {
   justify-content: center;
   align-items: center;
   width: 10%;
+  margin-left: 5%;
 }
 
 .nav-btn,
@@ -100,7 +101,7 @@ code {
 }
 
 .details-card {
-
+  display: flex;
   height: auto;
   background-color: rgba(92, 150, 237, 0.6);
   margin: 10px;
@@ -125,7 +126,53 @@ code {
 .info {
   height: 50px;
   width: 100px;
+  margin-left: 10px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.cast-btn {
+  border: 2px solid rgba(92, 150, 237, 0.6);
+  border-radius: 5px;
+  text-align: center;
+
+}
+
+.film-picture {
+  width: 20%;
+}
+
+@media (max-width: 769px) {
+  .header {
+    height: 80px;
+    /* Increase header height for mobile */
+    display: flex;
+    justify-content: center;
+    /* Adjust header layout for mobile */
+    align-items: center;
+    /* Adjust header layout for mobile */
+  }
+
+  .film-picture {
+    width: 100%;
+
+  }
+
+  .details-box {
+    flex-wrap: wrap;
+  }
+
+  .header-nav-btn {
+    display: flex;
+    /* Show navigation buttons on mobile */
+    width: 50px;
+    /* Adjust button size for mobile */
+    height: 100%;
+    /* Make buttons fill header height on mobile */
+    justify-content: center;
+    /* Center content horizontally */
+    align-items: center;
+    /* Center content vertically */
+  }
 }

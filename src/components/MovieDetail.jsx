@@ -38,7 +38,7 @@ const MovieDetail = () => {
           <img
             src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
             alt="Movie poster"
-            style={{ height: '70%' }}
+            className="film-picture"
           />
           <div className="details-info">
             <span style={{ marginBottom: '10px' }}>Title: {movie.title}</span>
@@ -58,21 +58,20 @@ const MovieDetail = () => {
             ) : null}
           </div>
         </div>
-
-        <div className="info">
-          <Link
-            to={
-              location.pathname.includes('/cast')
-                ? location.pathname.replace('/cast', '')
-                : `${location.pathname}/cast`
-            }
-            state={{ from: location.pathname }}
-            className="nav-btn"
-          >
-            Cast
-          </Link>
-          {/* <Link className="nav-btn">Reviews</Link> */}
-        </div>
+      </div>
+      <div className="info">
+        <Link
+          to={
+            location.pathname.includes('/cast')
+              ? location.pathname.replace('/cast', '')
+              : `${location.pathname}/cast`
+          }
+          state={{ from: location.pathname }}
+          className="nav-btn cast-btn"
+        >
+          Cast
+        </Link>
+        {/* <Link className="nav-btn">Reviews</Link> */}
         <Outlet />
       </div>
     </div>
