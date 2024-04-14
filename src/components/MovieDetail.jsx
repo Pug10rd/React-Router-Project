@@ -4,16 +4,17 @@ import { Link, useParams, useLocation, Outlet } from 'react-router-dom';
 const MovieDetail = () => {
   const [movie, setMovie] = useState({});
 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZjEyY2UyZjY2MjRkYTlhZWJlOWI1MWRmMmI3MTZhMCIsInN1YiI6IjY0MmVjNmEzMGQyZjUzMDA5NzM3ZDNhMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3y5LPiD5o4iA1k2X5yCEkyqG7cW3QxDYX5JfmTs7Ytw',
-    },
-  };
   const params = useParams();
   useEffect(() => {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZjEyY2UyZjY2MjRkYTlhZWJlOWI1MWRmMmI3MTZhMCIsInN1YiI6IjY0MmVjNmEzMGQyZjUzMDA5NzM3ZDNhMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3y5LPiD5o4iA1k2X5yCEkyqG7cW3QxDYX5JfmTs7Ytw',
+      },
+    };
+
     fetch(
       `https://api.themoviedb.org/3/movie/${params.id}?language=en-US`,
       options
@@ -21,7 +22,7 @@ const MovieDetail = () => {
       .then(response => response.json())
       .then(response => setMovie(response))
       .catch(err => console.error(err));
-  }, []);
+  }, [params]);
 
   const location = useLocation();
   const backLink = useRef(location.state?.from ?? '/');

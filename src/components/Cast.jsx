@@ -23,7 +23,7 @@ const Cast = () => {
       .then(response => response.json())
       .then(response => setCredits(response))
       .catch(err => console.error(err));
-  }, []);
+  }, [movieId]);
 
   return (
     <>

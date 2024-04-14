@@ -24,6 +24,7 @@ const Home = () => {
       .catch(function (error) {
         console.error(error);
       });
+    // eslint-disable-next-line
   }, []);
 
   const location = useLocation();
