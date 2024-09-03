@@ -1,5 +1,22 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+
+const MoviesBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 91vh;
+`;
+
+const Searchbar = styled.input`
+  width: 400px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 2em;
+  background-color: rgba(92, 150, 237, 0.5);
+`;
 
 const Movies = () => {
   const previousList = localStorage.getItem('memory');
@@ -37,7 +54,7 @@ const Movies = () => {
 
   useEffect(() => {
     localStorage.removeItem('memory');
-    localStorage.removeItem("input");
+    localStorage.removeItem('input');
   }, [search]);
 
   const location = useLocation();
@@ -48,8 +65,8 @@ const Movies = () => {
   };
 
   return (
-    <div className="movies">
-      <input
+    <MoviesBlock>
+      <Searchbar
         className="searchbar"
         placeholder="Search..."
         onChange={e => setSearch(e.target.value)}
@@ -70,7 +87,7 @@ const Movies = () => {
           );
         })}
       </ul>
-    </div>
+    </MoviesBlock>
   );
 };
 export default Movies;

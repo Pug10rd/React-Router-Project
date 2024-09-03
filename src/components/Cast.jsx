@@ -1,9 +1,48 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import castPicture from '../img/cast-picture-placeholder.jpg';
+
+const CastList = styled.div`
+  /* Styles for CastList */
+  width: 100%;
+  max-width: 90vw; /* Adjust max-width as needed */
+  height: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto; /* Center the grid horizontally */
+  margin-top: 1.5vw;
+  margin-bottom: 10vh;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(20vw, 1fr)
+  ); /* Responsive grid columns */
+  gap: 2vw;
+`;
+
+const CastPicture = styled.img`
+  height: 100%;
+  width: 6vw;
+  margin-right: 20px;
+`;
+
+const CastCard = styled.div`
+  display: flex;
+  align-items: center;
+  height: 10vh;
+`;
+
+const CardInfo = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  width: 300px;
+`;
 
 const Cast = () => {
   const [credits, setCredits] = useState({});
-
   const movieId = useParams();
 
   useEffect(() => {
@@ -25,14 +64,29 @@ const Cast = () => {
       .catch(err => console.error(err));
   }, [movieId]);
 
+  const renderLimit = credits?.cast?.slice(0, 12);
+
   return (
-    <>
-      <ul style={{ listStyle: 'none', padding: '0px' }}>
-        {credits?.cast?.map(credit => {
-          return <li key={credit.id}> - {credit.character}</li>;
-        })}
-      </ul>
-    </>
+    <CastList id="cast-list">
+      {renderLimit?.map(credit => {
+        return credit.known_for_department === 'Acting' ? (
+          <CastCard key={credit.id}>
+            <CastPicture
+              src={
+                credit.profile_path
+                  ? `https://image.tmdb.org/t/p/w300/${credit.profile_path}`
+                  : castPicture
+              }
+              alt="Cast pic"
+            />
+            <CardInfo>
+              <p>{credit.name}</p>
+              <p>Role: {credit.character}</p>
+            </CardInfo>
+          </CastCard>
+        ) : null;
+      })}
+    </CastList>
   );
 };
 
