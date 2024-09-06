@@ -8,8 +8,8 @@ const Component = () => {
       <div id="page-container">
         <Header />
         <Outlet />
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };

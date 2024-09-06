@@ -1,14 +1,26 @@
 import { auth, db } from '../firebase';
 import { useEffect, useState } from 'react';
 import { getDoc, doc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { removeUser } from 'store/slices/userSlice';
 import {
   setFavoriteMovies,
   removeFavoriteMovies,
 } from 'store/slices/movieSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import FilmCard from 'components/FilmCard/FilmCard';
+import styled from 'styled-components';
+
+const MovieBlock = styled.div`
+  background-color: red;
+  min-height: 33vh;
+  width: 80%;
+  margin-bottom: 5vh;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+`;
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -34,7 +46,7 @@ const Profile = () => {
         console.error('Error fetching user data:', error);
       }
     } else {
-      navigate('/login');
+      // navigate('/login');
     }
   };
 
@@ -106,21 +118,39 @@ const Profile = () => {
     }
   };
 
+  const location = useLocation();
+  const userData = useSelector(state => state.user);
+  const favoriteMovies = useSelector(state => state.movie.favoriteMovies);
+
   return (
     <>
       <p>
         Hello: {userDetails?.firstName} {userDetails?.lastName}
       </p>
-      {films.map(item => {
-        const data = filmData[item] || {}; // Fallback to empty object
-        return (
-          <div key={item}>
-            <p>{data.title || data.name || 'Loading...'}</p>
-            <p>1</p>
-          </div>
-        );
-      })}
-      <button onClick={handleLogout}>Logout</button>
+      <h2>Favorites</h2>
+      <MovieBlock>
+        {films.map(item => {
+          const data = filmData?.[item]; // Fallback to empty object
+          if (data) {
+            return (
+              <FilmCard
+                film={data}
+                location={location}
+                to={`${data.id}`}
+                userData={userData}
+                favoriteMovies={favoriteMovies}
+                uniqeId={data.id}
+              />
+            );
+          } else {
+            return null;
+          }
+        })}
+      </MovieBlock>
+
+      <button onClick={handleLogout} style={{ marginBottom: '10px' }}>
+        Logout
+      </button>
     </>
   );
 };

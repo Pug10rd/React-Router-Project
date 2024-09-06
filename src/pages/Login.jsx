@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const LoginBlock = styled.div`
   height: 80vh;
@@ -20,21 +21,28 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const handleLogin = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.accessToken,
-          })
-        );
-        navigate('/profile');
-      })
-      .catch(error => {
-        console.log(error);
-        setError(error.message);
-      });
+    toast.promise(
+      signInWithEmailAndPassword(auth, email, password)
+        .then(({ user }) => {
+          dispatch(
+            setUser({
+              email: user.email,
+              id: user.uid,
+              token: user.accessToken,
+            })
+          );
+          navigate('/profile');
+        })
+        .catch(error => {
+          console.log(error);
+          setError(error.message);
+        }),
+      {
+        pending: 'wait',
+        success: `Welcome!`,
+        error: `${error}`,
+      }
+    );
   };
 
   return (

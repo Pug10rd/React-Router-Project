@@ -8,10 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useLocation } from 'react-router-dom';
 
 const FooterBlock = styled.div`
-  position: relative; /* Змінено позицію на relative */
+  position: relative;
 
   height: 10vh;
-  bottom: 0;
+  margin-bottom: 1vh;
   background-color: rgb(118, 144, 195);
 `;
 
@@ -23,15 +23,10 @@ const FooterContent = styled.div`
 `;
 
 const InfoList = styled.ul`
-  width: 10vw;
-  height: 6vh;
   list-style: none;
   padding: 0;
   margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  display: inline-block;
 `;
 
 const InfoLink = styled.a`

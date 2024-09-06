@@ -4,6 +4,7 @@ import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setUser } from 'store/slices/userSlice.js';
 
 const LoginBlock = styled.div`
@@ -15,6 +16,7 @@ const LoginBlock = styled.div`
 
 const Registration = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleRegister = async (email, password, firstName, lastName) => {
     try {
@@ -38,6 +40,8 @@ const Registration = () => {
           token: user.accessToken,
         })
       );
+
+      navigate('/profile');
 
       console.log('User registered and data saved:', user);
     } catch (error) {

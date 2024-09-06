@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { useAuth } from 'hooks/use-auth';
+import { useSelector } from 'react-redux';
 
 const HeaderBlock = styled.div`
   background-color: rgb(118, 144, 195);
@@ -19,7 +19,6 @@ const HeaderBlock = styled.div`
 const ProfileButtons = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
   margin: 0;
 `;
 
@@ -31,13 +30,15 @@ const NavigationButtons = styled.div`
 
 const Header = () => {
   const [profile, setProfile] = useState(false);
-  const user = useAuth();
+  const user = useSelector(state => state.user);
+
   useEffect(() => {
     console.log(user);
-
-    if (user.isAuth) {
+    if (user.email !== null) {
+      console.log(user);
       setProfile(true);
     } else {
+      setProfile(false);
       return undefined;
     }
   }, [user]);
@@ -55,14 +56,13 @@ const Header = () => {
       <ProfileButtons>
         {profile ? (
           <Link className="nav-btn" to="profile">
-            Profile
+            PROFILE
           </Link>
         ) : (
           <Link to="login" className="nav-btn">
-            Sign in
+            SIGN IN
           </Link>
         )}
-        {/* <Link className="nav-btn">Profile</Link> */}
       </ProfileButtons>
     </HeaderBlock>
   );
