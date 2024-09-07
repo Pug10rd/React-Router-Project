@@ -22,7 +22,7 @@ jobs:
 
       - name: Build project
         env:
-          REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
+          REACT_APP_API_KEY: ${{ secrets.MOVILLA_APP_API_KEY }}
         run: npm run build
 
       - name: Setup Git user
