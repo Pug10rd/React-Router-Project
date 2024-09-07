@@ -32,5 +32,5 @@ jobs:
 
       - name: Deploy
         run: |
-          echo "machine github.com login ${{ secrets.GH_TOKEN }}" > ~/.netrc
+          echo "machine github.com login ${{ secrets.GH_TOK }}" > ~/.netrc
           npm run deploy
